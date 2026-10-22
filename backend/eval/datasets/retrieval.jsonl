@@ -1,0 +1,30 @@
+{"id":"q01","query":"How many days do I have to return something?","relevant":["return_policy::return-window","return_policy::orders-that-have-not-been-delivered"]}
+{"id":"q02","query":"Can I return opened electronics?","relevant":["return_policy::eligible-items"]}
+{"id":"q03","query":"Are gift cards returnable?","relevant":["return_policy::non-returnable-items","refund_policy::refund-eligibility"]}
+{"id":"q04","query":"How do I start a return?","relevant":["return_policy::how-to-start-a-return"]}
+{"id":"q05","query":"Do I have to pay for return shipping?","relevant":["return_policy::return-shipping","refund_policy::partial-refunds"]}
+{"id":"q06","query":"Can I return an order that hasn't arrived yet?","relevant":["return_policy::orders-that-have-not-been-delivered"]}
+{"id":"q07","query":"How long does it take for a refund to appear on my card?","relevant":["refund_policy::refund-method-and-timing","cancellation_policy::cancellation-refunds"]}
+{"id":"q08","query":"Who approves refunds and how long does review take?","relevant":["refund_policy::approval-process"]}
+{"id":"q09","query":"Why would I only get a partial refund?","relevant":["refund_policy::partial-refunds"]}
+{"id":"q10","query":"Can I submit two refund requests for the same order?","relevant":["refund_policy::duplicate-requests"]}
+{"id":"q11","query":"My refund was rejected, can I appeal?","relevant":["refund_policy::rejected-refunds"]}
+{"id":"q12","query":"Can I get store credit instead of a refund?","relevant":["refund_policy::refund-method-and-timing"]}
+{"id":"q13","query":"How long does standard shipping take?","relevant":["shipping_policy::shipping-methods-and-delivery-times","shipping_policy::processing-time"]}
+{"id":"q14","query":"Is shipping free?","relevant":["shipping_policy::shipping-costs"]}
+{"id":"q15","query":"Do you ship to Canada or other countries?","relevant":["shipping_policy::shipping-destinations"]}
+{"id":"q16","query":"Which carriers do you use and when do I get tracking?","relevant":["shipping_policy::carriers-and-tracking","support_faq::how-do-i-track-my-order"]}
+{"id":"q17","query":"My package never arrived, what happens?","relevant":["shipping_policy::delayed-lost-or-damaged-packages"]}
+{"id":"q18","query":"Do you process orders on weekends?","relevant":["shipping_policy::processing-time"]}
+{"id":"q19","query":"How long is the warranty on headphones?","relevant":["warranty_policy::standard-warranty-coverage"]}
+{"id":"q20","query":"Does the warranty cover water damage?","relevant":["warranty_policy::what-the-warranty-does-not-cover"]}
+{"id":"q21","query":"How do I file a warranty claim?","relevant":["warranty_policy::how-to-make-a-warranty-claim"]}
+{"id":"q22","query":"My keyboard broke after 2 months, can I still return it?","relevant":["warranty_policy::warranty-after-the-return-window","return_policy::return-window"]}
+{"id":"q23","query":"Is a standing desk motor failure covered?","relevant":["warranty_policy::what-the-warranty-covers","warranty_policy::standard-warranty-coverage"]}
+{"id":"q24","query":"Can I cancel my order after it has shipped?","relevant":["cancellation_policy::cancelling-an-order","return_policy::orders-that-have-not-been-delivered"]}
+{"id":"q25","query":"Will I get my shipping cost back if I cancel?","relevant":["cancellation_policy::cancellation-refunds"]}
+{"id":"q26","query":"Why did the store cancel my order?","relevant":["cancellation_policy::cancellations-by-the-vsr-store"]}
+{"id":"q27","query":"What hours is customer support available?","relevant":["support_faq::how-do-i-contact-customer-support"]}
+{"id":"q28","query":"Can I change my delivery address?","relevant":["support_faq::can-i-change-my-shipping-address-after-ordering"]}
+{"id":"q29","query":"Do you match lower prices from other retailers?","relevant":["support_faq::do-you-price-match"]}
+{"id":"q30","query":"Is gift wrapping available?","relevant":["support_faq::do-you-offer-gift-wrapping"]}

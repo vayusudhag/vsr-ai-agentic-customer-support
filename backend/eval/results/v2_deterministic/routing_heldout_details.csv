@@ -1,0 +1,21 @@
+id,text,memory,expected,predicted,correct
+h01,Any idea when ORD-1007 gets here?,False,order_status,order_status,True
+h02,Did my order ship?,True,order_status,order_status,True
+h03,tracking number for ORD-1001 please,False,order_status,order_status,True
+h04,What did I buy last month?,False,order_history,order_history,True
+h05,Is it too late to return this?,True,return_eligibility,return_eligibility,True
+h06,"ORD-1002 doesn't fit, can I return it?",False,return_eligibility,return_eligibility,True
+h07,Go ahead and open a return for it,True,return_request,return_request,True
+h08,Refund ORD-1002 please,False,refund_request,refund_request,True
+h09,I'd like my money back for this order,True,refund_request,refund_request,True
+h10,Was my refund processed?,False,refund_status,policy_question,False
+h11,"I changed my mind, cancel ORD-1004",False,cancellation,cancellation,True
+h12,What's the return window?,False,policy_question,policy_question,True
+h13,How do refunds work?,False,policy_question,policy_question,True
+h14,Do you deliver to Alaska?,False,policy_question,policy_question,True
+h15,How do I make a warranty claim?,False,policy_question,policy_question,True
+h16,Which keyboard would you recommend for programming?,False,product_recommendation,product_recommendation,True
+h17,I want a tent for two people,False,product_recommendation,product_recommendation,True
+h18,Got anything for making espresso at home?,False,product_recommendation,product_recommendation,True
+h19,good morning,False,greeting,greeting,True
+h20,What's the cheapest charger you have?,False,product_recommendation,product_recommendation,True

@@ -1,0 +1,111 @@
+{
+  "run_at": "2026-10-19T20:34:40.843451+00:00",
+  "baseline_file": "eval/results/baseline_v1.json",
+  "conditions": {
+    "agent_mode": "deterministic",
+    "llm_provider": "none",
+    "embedder": "hashing-1024",
+    "database": "sqlite",
+    "vector_store": "chroma",
+    "chunks_indexed": 33,
+    "python": "3.12.3",
+    "platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39",
+    "cpu_count": 1,
+    "note": "Datasets were written by the project author. Routing rules and the abstention threshold were revised once after the baseline run (baseline_v1.json) using the dev sets, so dev-set scores are optimistic; held-out sets (routing_heldout, unanswerable_heldout) were written before those changes and never used for tuning."
+  },
+  "metrics": {
+    "routing": {
+      "metric": "Intent routing accuracy",
+      "value": 1.0,
+      "n": 50,
+      "method": "Supervisor's top intent (full LangGraph run via API) compared with the labelled intent. Items marked memory=true first establish ORD-1002 in the same conversation.",
+      "per_intent": {
+        "order_status": 1.0,
+        "order_history": 1.0,
+        "return_eligibility": 1.0,
+        "return_request": 1.0,
+        "refund_request": 1.0,
+        "refund_status": 1.0,
+        "cancellation": 1.0,
+        "policy_question": 1.0,
+        "product_recommendation": 1.0,
+        "greeting": 1.0
+      },
+      "failures": [],
+      "heldout": {
+        "value": 0.95,
+        "n": 20,
+        "note": "Written after the baseline run and before rule fixes; never used for tuning.",
+        "failures": [
+          {
+            "id": "h10",
+            "text": "Was my refund processed?",
+            "memory": false,
+            "expected": "refund_status",
+            "predicted": "policy_question",
+            "correct": false
+          }
+        ]
+      }
+    },
+    "tool_selection": {
+      "metric": "Tool-selection accuracy (exact set match)",
+      "value": 1.0,
+      "n": 20,
+      "tool_call_precision": 1.0,
+      "tool_call_recall": 1.0,
+      "method": "The set of tools actually executed during the turn (from the execution trace) must equal the labelled set.",
+      "failures": []
+    },
+    "task_completion": {
+      "metric": "Task completion rate",
+      "value": 1.0,
+      "n": 14,
+      "method": "Scripted multi-turn scenarios (including admin approve/reject) checked against response content, citations, memory flags and resulting database rows.",
+      "failures": []
+    },
+    "retrieval": {
+      "metric": "Retrieval Precision@5",
+      "value": 0.2333,
+      "n": 30,
+      "ceiling": 0.26,
+      "recall_at_5": 0.9167,
+      "hit_at_1": 0.7333,
+      "mrr": 0.8417,
+      "method": "Fraction of the top-5 retrieved chunks whose policy section is labelled relevant. Each query has only 1-2 relevant sections, so the attainable ceiling is reported alongside the score."
+    },
+    "groundedness": {
+      "metric": "Answer groundedness (lexical support)",
+      "value": 0.9873,
+      "n": 30,
+      "n_kb_answers": 28,
+      "answered_rate": 0.9333,
+      "relevant_citation_rate": 0.9286,
+      "abstention_definition": "Response contains no policy/product claim: the knowledge agent's 'couldn't find that' or the product agent's 'couldn't find products matching'.",
+      "abstention_accuracy_unanswerable": 1.0,
+      "n_unanswerable": 8,
+      "abstention_accuracy_heldout": 0.5,
+      "n_unanswerable_heldout": 6,
+      "method": "Scored only on turns answered by the knowledge agent with citations (answered_rate shows how many policy questions reached it; the rest were routed elsewhere). An answer sentence is 'supported' when >=80% of its content tokens appear in one cited chunk. In deterministic mode answers are extractive, so high support is expected by construction; the more informative numbers are relevant_citation_rate and abstention accuracy on unanswerable questions.",
+      "llm_judge": "Not Evaluated: LLM-as-judge groundedness requires an LLM API key, which was not configured for this run."
+    },
+    "latency": {
+      "metric": "API response latency",
+      "n": 165,
+      "graph_ms": {
+        "mean": 18.7,
+        "p50": 16.2,
+        "p95": 30.2,
+        "max": 64.6
+      },
+      "api_ms": {
+        "mean": 29.5,
+        "p50": 27.3,
+        "p95": 43.6,
+        "max": 83.1
+      },
+      "method": "Every POST /api/chat issued during this evaluation, measured in-process (FastAPI TestClient, no network hop). graph_ms = LangGraph execution; api_ms = full request including auth and persistence.",
+      "value": 27.3
+    }
+  }
+}

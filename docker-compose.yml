@@ -1,0 +1,45 @@
+# VSR AI — local stack: PostgreSQL + FastAPI/LangGraph backend + React/nginx frontend.
+# Usage:  cp .env.example .env  &&  docker compose up --build   ->  http://localhost:8080
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-vsr}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-vsr_ai}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-vsr} -d ${POSTGRES_DB:-vsr_ai}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-vsr}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-vsr_ai}
+      CHROMA_PATH: /app/data/chroma
+      CHECKPOINT_DB_PATH: /app/data/checkpoints.sqlite
+      TRUST_PROXY_HEADERS: "true"
+      CORS_ORIGINS: http://localhost:8080
+    volumes:
+      - backend-data:/app/data   # Chroma index + LangGraph checkpoints (paused approvals survive restarts)
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
+  backend-data:

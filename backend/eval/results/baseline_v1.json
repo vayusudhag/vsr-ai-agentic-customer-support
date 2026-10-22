@@ -1,0 +1,148 @@
+{
+  "run_at": "2026-10-19T20:30:57.144717+00:00",
+  "conditions": {
+    "agent_mode": "deterministic",
+    "llm_provider": "none",
+    "embedder": "hashing-1024",
+    "database": "sqlite",
+    "vector_store": "chroma",
+    "chunks_indexed": 33,
+    "python": "3.12.3",
+    "platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39",
+    "cpu_count": 1,
+    "note": "Datasets were written by the project author; routing/tool labels were not used to tune rules after this run."
+  },
+  "metrics": {
+    "routing": {
+      "metric": "Intent routing accuracy",
+      "value": 0.88,
+      "n": 50,
+      "method": "Supervisor's top intent (full LangGraph run via API) compared with the labelled intent. Items marked memory=true first establish ORD-1002 in the same conversation.",
+      "per_intent": {
+        "order_status": 0.875,
+        "order_history": 1.0,
+        "return_eligibility": 0.8,
+        "return_request": 1.0,
+        "refund_request": 1.0,
+        "refund_status": 1.0,
+        "cancellation": 1.0,
+        "policy_question": 0.923,
+        "product_recommendation": 0.714,
+        "greeting": 0.5
+      },
+      "failures": [
+        {
+          "id": "r07",
+          "text": "Is it delivered yet?",
+          "memory": true,
+          "expected": "order_status",
+          "predicted": "policy_question",
+          "correct": false
+        },
+        {
+          "id": "r13",
+          "text": "I want to send this back, is that possible?",
+          "memory": true,
+          "expected": "return_eligibility",
+          "predicted": "policy_question",
+          "correct": false
+        },
+        {
+          "id": "r38",
+          "text": "Can I cancel an order after it ships?",
+          "memory": false,
+          "expected": "policy_question",
+          "predicted": "cancellation",
+          "correct": false
+        },
+        {
+          "id": "r44",
+          "text": "I need a portable speaker for the beach",
+          "memory": false,
+          "expected": "product_recommendation",
+          "predicted": "policy_question",
+          "correct": false
+        },
+        {
+          "id": "r45",
+          "text": "hi there",
+          "memory": false,
+          "expected": "greeting",
+          "predicted": "policy_question",
+          "correct": false
+        },
+        {
+          "id": "r47",
+          "text": "which smartwatch is good for running?",
+          "memory": false,
+          "expected": "product_recommendation",
+          "predicted": "policy_question",
+          "correct": false
+        }
+      ]
+    },
+    "tool_selection": {
+      "metric": "Tool-selection accuracy (exact set match)",
+      "value": 0.95,
+      "n": 20,
+      "tool_call_precision": 0.9655,
+      "tool_call_recall": 1.0,
+      "method": "The set of tools actually executed during the turn (from the execution trace) must equal the labelled set.",
+      "failures": [
+        {
+          "id": "t02",
+          "text": "What's in ORD-1002 and how much was it?",
+          "expected": "get_order_details",
+          "called": "get_order_details|search_knowledge_base",
+          "exact_match": false
+        }
+      ]
+    },
+    "task_completion": {
+      "metric": "Task completion rate",
+      "value": 1.0,
+      "n": 14,
+      "method": "Scripted multi-turn scenarios (including admin approve/reject) checked against response content, citations, memory flags and resulting database rows.",
+      "failures": []
+    },
+    "retrieval": {
+      "metric": "Retrieval Precision@5",
+      "value": 0.2333,
+      "n": 30,
+      "ceiling": 0.26,
+      "recall_at_5": 0.9167,
+      "hit_at_1": 0.7333,
+      "mrr": 0.8417,
+      "method": "Fraction of the top-5 retrieved chunks whose policy section is labelled relevant. Each query has only 1-2 relevant sections, so the attainable ceiling is reported alongside the score."
+    },
+    "groundedness": {
+      "metric": "Answer groundedness (lexical support)",
+      "value": 0.764,
+      "n": 30,
+      "answered_rate": 1.0,
+      "relevant_citation_rate": 0.7667,
+      "abstention_accuracy_unanswerable": 0.75,
+      "n_unanswerable": 8,
+      "method": "An answer sentence is 'supported' when >=80% of its content tokens appear in one cited chunk. In deterministic mode answers are extractive, so high support is expected by construction; the more informative numbers are relevant_citation_rate and abstention accuracy on unanswerable questions.",
+      "llm_judge": "Not Evaluated: LLM-as-judge groundedness requires an LLM API key, which was not configured for this run."
+    },
+    "latency": {
+      "metric": "API response latency",
+      "n": 135,
+      "graph_ms": {
+        "mean": 19.5,
+        "p50": 16.6,
+        "p95": 28.3,
+        "max": 135.8
+      },
+      "api_ms": {
+        "mean": 30.2,
+        "p50": 27.2,
+        "p95": 41.4,
+        "max": 152.3
+      },
+      "method": "Every POST /api/chat issued during this evaluation, measured in-process (FastAPI TestClient, no network hop). graph_ms = LangGraph execution; api_ms = full request including auth and persistence.",
+      "value": 27.2
+    }
+  }
+}

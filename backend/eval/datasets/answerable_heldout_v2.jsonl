@@ -1,0 +1,10 @@
+{"id":"ah01","query":"Is overnight shipping available and what does it cost?","relevant":["shipping_policy::shipping-methods-and-delivery-times","shipping_policy::shipping-costs"]}
+{"id":"ah02","query":"What happens if my parcel shows up broken?","relevant":["shipping_policy::delayed-lost-or-damaged-packages"]}
+{"id":"ah03","query":"Can I send back a gift card I don't need?","relevant":["return_policy::non-returnable-items","refund_policy::refund-eligibility"]}
+{"id":"ah04","query":"Do I need an RMA number to return something?","relevant":["return_policy::how-to-start-a-return"]}
+{"id":"ah05","query":"How long is the office chair warranty?","relevant":["warranty_policy::standard-warranty-coverage"]}
+{"id":"ah06","query":"Are cosmetic scratches covered under warranty?","relevant":["warranty_policy::what-the-warranty-does-not-cover"]}
+{"id":"ah07","query":"Do you ship to military APO addresses?","relevant":["shipping_policy::shipping-destinations"]}
+{"id":"ah08","query":"When are human support agents available on Saturday?","relevant":["support_faq::how-do-i-contact-customer-support"]}
+{"id":"ah09","query":"What if the price drops after I buy something?","relevant":["support_faq::do-you-price-match"]}
+{"id":"ah10","query":"Who can see my support conversations?","relevant":["support_faq::how-is-my-personal-information-protected"]}

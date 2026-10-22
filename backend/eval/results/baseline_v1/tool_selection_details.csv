@@ -1,0 +1,21 @@
+id,text,expected,called,exact_match
+t01,Where is my order ORD-1001?,get_order_status,get_order_status,True
+t02,What's in ORD-1002 and how much was it?,get_order_details,get_order_details|search_knowledge_base,False
+t03,Show me all my orders,get_customer_orders,get_customer_orders,True
+t04,Can I return ORD-1002?,check_return_eligibility|search_knowledge_base,check_return_eligibility|search_knowledge_base,True
+t05,Can I return it?,check_return_eligibility|search_knowledge_base,check_return_eligibility|search_knowledge_base,True
+t06,Is ORD-1003 returnable?,check_return_eligibility|search_knowledge_base,check_return_eligibility|search_knowledge_base,True
+t07,Please start a return for ORD-1002,check_return_eligibility|create_return_request,check_return_eligibility|create_return_request,True
+t08,I want a refund for ORD-1002,check_return_eligibility|create_refund_request|search_knowledge_base,check_return_eligibility|create_refund_request|search_knowledge_base,True
+t09,What's the status of my refund?,get_refund_status,get_refund_status,True
+t10,Do you ship to Canada?,search_knowledge_base,search_knowledge_base,True
+t11,What does the warranty cover?,search_knowledge_base,search_knowledge_base,True
+t12,How long does a refund take?,search_knowledge_base,search_knowledge_base,True
+t13,Recommend noise-cancelling headphones under $300,search_products,search_products,True
+t14,I need a gift for someone who loves cooking,search_products,search_products,True
+t15,Can I cancel ORD-1004?,get_order_status|search_knowledge_base,get_order_status|search_knowledge_base,True
+t16,When will it arrive?,get_order_status,get_order_status,True
+t17,Can I return ORD-1005?,check_return_eligibility|search_knowledge_base,check_return_eligibility|search_knowledge_base,True
+t18,Suggest a fitness tracker under $100,search_products,search_products,True
+t19,Do you price match?,search_knowledge_base,search_knowledge_base,True
+t20,Where is ORD-1006?,get_order_status,get_order_status,True

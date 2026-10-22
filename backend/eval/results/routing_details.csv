@@ -1,0 +1,51 @@
+id,text,memory,expected,predicted,correct
+r01,Where is my order ORD-1001?,False,order_status,order_status,True
+r02,has ORD-1004 shipped yet,False,order_status,order_status,True
+r03,When will order 1001 arrive?,False,order_status,order_status,True
+r04,Can you track my package?,True,order_status,order_status,True
+r05,what's in ORD-1002,False,order_status,order_status,True
+r06,Give me the delivery estimate for ORD-1001,False,order_status,order_status,True
+r07,Is it delivered yet?,True,order_status,order_status,True
+r08,Show me all my orders,False,order_history,order_history,True
+r09,What have I ordered recently?,False,order_history,order_history,True
+r10,list my past orders please,False,order_history,order_history,True
+r11,Can I return it?,True,return_eligibility,return_eligibility,True
+r12,Is ORD-1003 still returnable?,False,return_eligibility,return_eligibility,True
+r13,"I want to send this back, is that possible?",True,return_eligibility,return_eligibility,True
+r14,Am I able to return ORD-1005,False,return_eligibility,return_eligibility,True
+r15,could I exchange my order ORD-1002?,False,return_eligibility,return_eligibility,True
+r16,Please start a return for ORD-1002,False,return_request,return_request,True
+r17,Create a return label for my order,True,return_request,return_request,True
+r18,I need an RMA for ORD-1002,False,return_request,return_request,True
+r19,I want a refund for ORD-1002,False,refund_request,refund_request,True
+r20,Can I get my money back for it?,True,refund_request,refund_request,True
+r21,"Please refund my order, the strap broke",True,refund_request,refund_request,True
+r22,I'd like to request a refund for ORD-1002,False,refund_request,refund_request,True
+r23,What's the status of my refund?,False,refund_status,refund_status,True
+r24,Has my refund been approved yet?,False,refund_status,refund_status,True
+r25,any update on the refund I requested,False,refund_status,refund_status,True
+r26,Can I cancel ORD-1004?,False,cancellation,cancellation,True
+r27,please cancel my order,True,cancellation,cancellation,True
+r28,What is your return policy?,False,policy_question,policy_question,True
+r29,How long do refunds take to show up?,False,policy_question,policy_question,True
+r30,Do you ship internationally?,False,policy_question,policy_question,True
+r31,How much is expedited shipping?,False,policy_question,policy_question,True
+r32,What does the warranty cover?,False,policy_question,policy_question,True
+r33,Do you price match other stores?,False,policy_question,policy_question,True
+r34,What are your support hours?,False,policy_question,policy_question,True
+r35,Are gift cards refundable?,False,policy_question,policy_question,True
+r36,Is there free shipping?,False,policy_question,policy_question,True
+r37,"My package was damaged, what should I do?",False,policy_question,policy_question,True
+r38,Can I cancel an order after it ships?,False,policy_question,policy_question,True
+r39,Recommend some wireless earbuds,False,product_recommendation,product_recommendation,True
+r40,I'm looking for a gift for a coffee lover,False,product_recommendation,product_recommendation,True
+r41,What's the best standing desk you sell?,False,product_recommendation,product_recommendation,True
+r42,Suggest hiking gear under $150,False,product_recommendation,product_recommendation,True
+r43,Do you have any ergonomic office chairs?,False,product_recommendation,product_recommendation,True
+r44,I need a portable speaker for the beach,False,product_recommendation,product_recommendation,True
+r45,hi there,False,greeting,greeting,True
+r46,Thanks!,False,greeting,greeting,True
+r47,which smartwatch is good for running?,False,product_recommendation,product_recommendation,True
+r48,How do I change my shipping address?,False,policy_question,policy_question,True
+r49,Where's my stuff? Order ORD-1004,False,order_status,order_status,True
+r50,Can I return headphones I bought 2 months ago?,False,policy_question,policy_question,True

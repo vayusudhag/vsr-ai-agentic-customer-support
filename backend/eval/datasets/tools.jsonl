@@ -1,0 +1,20 @@
+{"id":"t01","text":"Where is my order ORD-1001?","memory":false,"expected_tools":["get_order_status"]}
+{"id":"t02","text":"What's in ORD-1002 and how much was it?","memory":false,"expected_tools":["get_order_details"]}
+{"id":"t03","text":"Show me all my orders","memory":false,"expected_tools":["get_customer_orders"]}
+{"id":"t04","text":"Can I return ORD-1002?","memory":false,"expected_tools":["check_return_eligibility","search_knowledge_base"]}
+{"id":"t05","text":"Can I return it?","memory":true,"expected_tools":["check_return_eligibility","search_knowledge_base"]}
+{"id":"t06","text":"Is ORD-1003 returnable?","memory":false,"expected_tools":["check_return_eligibility","search_knowledge_base"]}
+{"id":"t07","text":"Please start a return for ORD-1002","memory":false,"expected_tools":["check_return_eligibility","create_return_request"]}
+{"id":"t08","text":"I want a refund for ORD-1002","memory":false,"expected_tools":["check_return_eligibility","create_refund_request","search_knowledge_base"]}
+{"id":"t09","text":"What's the status of my refund?","memory":false,"expected_tools":["get_refund_status"]}
+{"id":"t10","text":"Do you ship to Canada?","memory":false,"expected_tools":["search_knowledge_base"]}
+{"id":"t11","text":"What does the warranty cover?","memory":false,"expected_tools":["search_knowledge_base"]}
+{"id":"t12","text":"How long does a refund take?","memory":false,"expected_tools":["search_knowledge_base"]}
+{"id":"t13","text":"Recommend noise-cancelling headphones under $300","memory":false,"expected_tools":["search_products"]}
+{"id":"t14","text":"I need a gift for someone who loves cooking","memory":false,"expected_tools":["search_products"]}
+{"id":"t15","text":"Can I cancel ORD-1004?","memory":false,"expected_tools":["get_order_status","search_knowledge_base"]}
+{"id":"t16","text":"When will it arrive?","memory":true,"expected_tools":["get_order_status"]}
+{"id":"t17","text":"Can I return ORD-1005?","memory":false,"expected_tools":["check_return_eligibility","search_knowledge_base"]}
+{"id":"t18","text":"Suggest a fitness tracker under $100","memory":false,"expected_tools":["search_products"]}
+{"id":"t19","text":"Do you price match?","memory":false,"expected_tools":["search_knowledge_base"]}
+{"id":"t20","text":"Where is ORD-1006?","memory":false,"expected_tools":["get_order_status"]}

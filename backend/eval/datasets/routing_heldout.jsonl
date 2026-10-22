@@ -1,0 +1,20 @@
+{"id":"h01","text":"Any idea when ORD-1007 gets here?","memory":false,"expected":"order_status"}
+{"id":"h02","text":"Did my order ship?","memory":true,"expected":"order_status"}
+{"id":"h03","text":"tracking number for ORD-1001 please","memory":false,"expected":"order_status"}
+{"id":"h04","text":"What did I buy last month?","memory":false,"expected":"order_history"}
+{"id":"h05","text":"Is it too late to return this?","memory":true,"expected":"return_eligibility"}
+{"id":"h06","text":"ORD-1002 doesn't fit, can I return it?","memory":false,"expected":"return_eligibility"}
+{"id":"h07","text":"Go ahead and open a return for it","memory":true,"expected":"return_request"}
+{"id":"h08","text":"Refund ORD-1002 please","memory":false,"expected":"refund_request"}
+{"id":"h09","text":"I'd like my money back for this order","memory":true,"expected":"refund_request"}
+{"id":"h10","text":"Was my refund processed?","memory":false,"expected":"refund_status"}
+{"id":"h11","text":"I changed my mind, cancel ORD-1004","memory":false,"expected":"cancellation"}
+{"id":"h12","text":"What's the return window?","memory":false,"expected":"policy_question"}
+{"id":"h13","text":"How do refunds work?","memory":false,"expected":"policy_question"}
+{"id":"h14","text":"Do you deliver to Alaska?","memory":false,"expected":"policy_question"}
+{"id":"h15","text":"How do I make a warranty claim?","memory":false,"expected":"policy_question"}
+{"id":"h16","text":"Which keyboard would you recommend for programming?","memory":false,"expected":"product_recommendation"}
+{"id":"h17","text":"I want a tent for two people","memory":false,"expected":"product_recommendation"}
+{"id":"h18","text":"Got anything for making espresso at home?","memory":false,"expected":"product_recommendation"}
+{"id":"h19","text":"good morning","memory":false,"expected":"greeting"}
+{"id":"h20","text":"What's the cheapest charger you have?","memory":false,"expected":"product_recommendation"}

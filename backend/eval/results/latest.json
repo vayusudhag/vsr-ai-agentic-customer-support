@@ -1,0 +1,122 @@
+{
+  "run_at": "2026-10-20T13:32:10.021619+00:00",
+  "version": "v3",
+  "results_mode": "deterministic",
+  "baseline_file": "eval/results/baseline_v1.json",
+  "conditions": {
+    "agent_mode": "deterministic",
+    "llm_provider": "none",
+    "embedder": "hashing-1024",
+    "database": "sqlite",
+    "vector_store": "chroma",
+    "chunks_indexed": 33,
+    "python": "3.12.3",
+    "platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39",
+    "cpu_count": 1,
+    "note": "All numbers come from deterministic agents (no LLM). Datasets were written by the project author. Routing rules were revised once after v1 and the abstention gate was redesigned in v3 using dev sets, so dev scores are optimistic. routing_heldout and the *_heldout_v2 sets were never used for tuning."
+  },
+  "metrics": {
+    "routing": {
+      "metric": "Intent routing accuracy",
+      "value": 1.0,
+      "n": 50,
+      "method": "Supervisor's top intent (full LangGraph run via API) compared with the labelled intent. Items marked memory=true first establish ORD-1002 in the same conversation.",
+      "per_intent": {
+        "order_status": 1.0,
+        "order_history": 1.0,
+        "return_eligibility": 1.0,
+        "return_request": 1.0,
+        "refund_request": 1.0,
+        "refund_status": 1.0,
+        "cancellation": 1.0,
+        "policy_question": 1.0,
+        "product_recommendation": 1.0,
+        "greeting": 1.0
+      },
+      "failures": [],
+      "heldout": {
+        "value": 0.95,
+        "n": 20,
+        "note": "Written after the baseline run and before rule fixes; never used for tuning.",
+        "failures": [
+          {
+            "id": "h10",
+            "text": "Was my refund processed?",
+            "memory": false,
+            "expected": "refund_status",
+            "predicted": "policy_question",
+            "correct": false
+          }
+        ]
+      }
+    },
+    "tool_selection": {
+      "metric": "Tool-selection accuracy (exact set match)",
+      "value": 1.0,
+      "n": 20,
+      "tool_call_precision": 1.0,
+      "tool_call_recall": 1.0,
+      "method": "The set of tools actually executed during the turn (from the execution trace) must equal the labelled set.",
+      "failures": []
+    },
+    "task_completion": {
+      "metric": "Task completion rate",
+      "value": 1.0,
+      "n": 14,
+      "method": "Scripted multi-turn scenarios (including admin approve/reject) checked against response content, citations, memory flags and resulting database rows.",
+      "failures": []
+    },
+    "retrieval": {
+      "metric": "Retrieval Precision@5",
+      "value": 0.2333,
+      "n": 30,
+      "ceiling": 0.26,
+      "recall_at_5": 0.9167,
+      "hit_at_1": 0.7333,
+      "mrr": 0.8417,
+      "method": "Fraction of the top-5 retrieved chunks whose policy section is labelled relevant. Each query has only 1-2 relevant sections, so the attainable ceiling is reported alongside the score. Queries pass through the same synonym expansion the knowledge agent uses (added in v3)."
+    },
+    "groundedness": {
+      "metric": "Answer groundedness (lexical support)",
+      "value": 1.0,
+      "n": 30,
+      "n_kb_answers": 26,
+      "answered_rate": 0.8667,
+      "relevant_citation_rate": 0.9231,
+      "abstention_definition": "Response contains no policy/product claim: the knowledge agent's 'couldn't find that' or the product agent's 'couldn't find products matching'.",
+      "abstention_accuracy_unanswerable": 1.0,
+      "n_unanswerable": 8,
+      "abstention_accuracy_heldout": 1.0,
+      "n_unanswerable_heldout": 6,
+      "abstention_heldout_note": "The v1 held-out unanswerable set was inspected while designing the v3 gate, so it is now reported as 'seen'.",
+      "heldout_v2": {
+        "abstention_accuracy": 0.7,
+        "n_unanswerable": 10,
+        "answered_rate": 0.8,
+        "relevant_citation_rate": 0.8,
+        "n_answerable": 10,
+        "note": "Written before the v3 answerability gate was implemented; never used for tuning."
+      },
+      "method": "Scored only on turns answered by the knowledge agent with citations (answered_rate shows how many policy questions reached it; the rest were routed elsewhere). An answer sentence is 'supported' when >=80% of its content tokens appear in one cited chunk. In deterministic mode answers are extractive, so high support is expected by construction; the more informative numbers are relevant_citation_rate and abstention accuracy on unanswerable questions.",
+      "llm_judge": "Not Evaluated: LLM-as-judge groundedness requires an LLM API key, which was not configured for this run."
+    },
+    "latency": {
+      "metric": "API response latency",
+      "n": 185,
+      "graph_ms": {
+        "mean": 19.0,
+        "p50": 17.0,
+        "p95": 28.2,
+        "max": 54.0
+      },
+      "api_ms": {
+        "mean": 30.0,
+        "p50": 28.1,
+        "p95": 41.6,
+        "max": 71.0
+      },
+      "method": "Every POST /api/chat issued during this evaluation, measured in-process (FastAPI TestClient, no network hop). graph_ms = LangGraph execution; api_ms = full request including auth and persistence.",
+      "value": 28.1
+    }
+  }
+}

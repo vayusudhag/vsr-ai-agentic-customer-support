@@ -1,0 +1,36 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+backend/data/
+
+# node
+node_modules/
+frontend/dist/
+
+# os / editors
+.DS_Store
+.idea/
+.vscode/
+backups/
+
+# local code backups
+*.backup
+*.backup-*
+
+# local databases and logs
+*.sqlite
+*.sqlite3
+*.db
+*.log
+
+# temporary development files
+*.before_*
+*.tsbuildinfo

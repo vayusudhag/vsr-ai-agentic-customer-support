@@ -1,0 +1,11 @@
+id,query,routed_to,answered,cites_relevant_section
+ah01,Is overnight shipping available and what does it cost?,supervisor|knowledge_agent,True,True
+ah02,What happens if my parcel shows up broken?,supervisor|knowledge_agent,True,True
+ah03,Can I send back a gift card I don't need?,supervisor|knowledge_agent,True,True
+ah04,Do I need an RMA number to return something?,supervisor|product_agent,False,False
+ah05,How long is the office chair warranty?,supervisor|knowledge_agent,True,True
+ah06,Are cosmetic scratches covered under warranty?,supervisor|knowledge_agent,True,True
+ah07,Do you ship to military APO addresses?,supervisor|knowledge_agent,True,True
+ah08,When are human support agents available on Saturday?,supervisor|knowledge_agent,True,True
+ah09,What if the price drops after I buy something?,supervisor|product_agent,False,False
+ah10,Who can see my support conversations?,supervisor|knowledge_agent,True,True

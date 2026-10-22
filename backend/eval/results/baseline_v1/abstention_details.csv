@@ -1,0 +1,9 @@
+id,query,abstained
+u01,Do you offer student discounts?,True
+u02,How does your loyalty points program work?,True
+u03,Where are your physical store locations?,True
+u04,Can I pay with cryptocurrency?,True
+u05,Do you offer buy now pay later financing?,False
+u06,Is there a trade-in program for old devices?,True
+u07,Do you have a military discount?,False
+u08,What are your wholesale bulk pricing tiers?,True

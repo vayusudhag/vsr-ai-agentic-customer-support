@@ -1,0 +1,15 @@
+id,split,query,abstained
+u01,dev,Do you offer student discounts?,True
+u02,dev,How does your loyalty points program work?,True
+u03,dev,Where are your physical store locations?,True
+u04,dev,Can I pay with cryptocurrency?,True
+u05,dev,Do you offer buy now pay later financing?,True
+u06,dev,Is there a trade-in program for old devices?,True
+u07,dev,Do you have a military discount?,True
+u08,dev,What are your wholesale bulk pricing tiers?,True
+uh1,heldout,Do you have a referral bonus?,True
+uh2,heldout,Can I pick up my order in person?,False
+uh3,heldout,What is your corporate headquarters address?,False
+uh4,heldout,Do you sell refurbished laptops?,True
+uh5,heldout,Is there a senior citizen discount?,True
+uh6,heldout,Can I schedule a delivery time slot?,False

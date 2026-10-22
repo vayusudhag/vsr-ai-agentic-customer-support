@@ -1,0 +1,25 @@
+id,split,query,abstained
+u01,dev,Do you offer student discounts?,True
+u02,dev,How does your loyalty points program work?,True
+u03,dev,Where are your physical store locations?,True
+u04,dev,Can I pay with cryptocurrency?,True
+u05,dev,Do you offer buy now pay later financing?,True
+u06,dev,Is there a trade-in program for old devices?,True
+u07,dev,Do you have a military discount?,True
+u08,dev,What are your wholesale bulk pricing tiers?,True
+uh1,seen_heldout_v1,Do you have a referral bonus?,True
+uh2,seen_heldout_v1,Can I pick up my order in person?,True
+uh3,seen_heldout_v1,What is your corporate headquarters address?,True
+uh4,seen_heldout_v1,Do you sell refurbished laptops?,True
+uh5,seen_heldout_v1,Is there a senior citizen discount?,True
+uh6,seen_heldout_v1,Can I schedule a delivery time slot?,True
+uv01,heldout_v2,Do you have a mobile app?,True
+uv02,heldout_v2,Can I use two promo codes on one order?,True
+uv03,heldout_v2,Do you offer installation for the standing desk?,False
+uv04,heldout_v2,Are your products made in the USA?,True
+uv05,heldout_v2,Do you offer an extended warranty plan I can buy?,True
+uv06,heldout_v2,Can I pay with PayPal?,True
+uv07,heldout_v2,Is there a newsletter I can subscribe to?,True
+uv08,heldout_v2,Do you have a rewards credit card?,False
+uv09,heldout_v2,Can I leave a product review?,False
+uv10,heldout_v2,What is the sales tax rate on orders?,True

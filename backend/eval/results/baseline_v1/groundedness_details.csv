@@ -1,0 +1,31 @@
+id,query,abstained,sentences,supported_sentences,cites_relevant_section
+q01,How many days do I have to return something?,False,3,3,True
+q02,Can I return opened electronics?,False,3,3,True
+q03,Are gift cards returnable?,False,3,3,True
+q04,How do I start a return?,False,2,0,False
+q05,Do I have to pay for return shipping?,False,3,3,True
+q06,Can I return an order that hasn't arrived yet?,False,3,3,True
+q07,How long does it take for a refund to appear on my card?,False,2,0,False
+q08,Who approves refunds and how long does review take?,False,3,3,True
+q09,Why would I only get a partial refund?,False,3,3,True
+q10,Can I submit two refund requests for the same order?,False,3,3,True
+q11,"My refund was rejected, can I appeal?",False,3,3,True
+q12,Can I get store credit instead of a refund?,False,3,3,True
+q13,How long does standard shipping take?,False,3,3,True
+q14,Is shipping free?,False,3,3,True
+q15,Do you ship to Canada or other countries?,False,3,3,True
+q16,Which carriers do you use and when do I get tracking?,False,3,3,True
+q17,"My package never arrived, what happens?",False,2,0,False
+q18,Do you process orders on weekends?,False,1,1,True
+q19,How long is the warranty on headphones?,False,3,3,True
+q20,Does the warranty cover water damage?,False,3,3,True
+q21,How do I file a warranty claim?,False,3,3,True
+q22,"My keyboard broke after 2 months, can I still return it?",False,2,0,False
+q23,Is a standing desk motor failure covered?,False,3,3,True
+q24,Can I cancel my order after it has shipped?,False,4,2,True
+q25,Will I get my shipping cost back if I cancel?,False,3,3,False
+q26,Why did the store cancel my order?,False,4,1,False
+q27,What hours is customer support available?,False,3,3,True
+q28,Can I change my delivery address?,False,3,3,True
+q29,Do you match lower prices from other retailers?,False,1,1,True
+q30,Is gift wrapping available?,False,8,0,False

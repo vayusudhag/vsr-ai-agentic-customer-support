@@ -1,0 +1,50 @@
+{"id":"r01","text":"Where is my order ORD-1001?","memory":false,"expected":"order_status"}
+{"id":"r02","text":"has ORD-1004 shipped yet","memory":false,"expected":"order_status"}
+{"id":"r03","text":"When will order 1001 arrive?","memory":false,"expected":"order_status"}
+{"id":"r04","text":"Can you track my package?","memory":true,"expected":"order_status"}
+{"id":"r05","text":"what's in ORD-1002","memory":false,"expected":"order_status"}
+{"id":"r06","text":"Give me the delivery estimate for ORD-1001","memory":false,"expected":"order_status"}
+{"id":"r07","text":"Is it delivered yet?","memory":true,"expected":"order_status"}
+{"id":"r08","text":"Show me all my orders","memory":false,"expected":"order_history"}
+{"id":"r09","text":"What have I ordered recently?","memory":false,"expected":"order_history"}
+{"id":"r10","text":"list my past orders please","memory":false,"expected":"order_history"}
+{"id":"r11","text":"Can I return it?","memory":true,"expected":"return_eligibility"}
+{"id":"r12","text":"Is ORD-1003 still returnable?","memory":false,"expected":"return_eligibility"}
+{"id":"r13","text":"I want to send this back, is that possible?","memory":true,"expected":"return_eligibility"}
+{"id":"r14","text":"Am I able to return ORD-1005","memory":false,"expected":"return_eligibility"}
+{"id":"r15","text":"could I exchange my order ORD-1002?","memory":false,"expected":"return_eligibility"}
+{"id":"r16","text":"Please start a return for ORD-1002","memory":false,"expected":"return_request"}
+{"id":"r17","text":"Create a return label for my order","memory":true,"expected":"return_request"}
+{"id":"r18","text":"I need an RMA for ORD-1002","memory":false,"expected":"return_request"}
+{"id":"r19","text":"I want a refund for ORD-1002","memory":false,"expected":"refund_request"}
+{"id":"r20","text":"Can I get my money back for it?","memory":true,"expected":"refund_request"}
+{"id":"r21","text":"Please refund my order, the strap broke","memory":true,"expected":"refund_request"}
+{"id":"r22","text":"I'd like to request a refund for ORD-1002","memory":false,"expected":"refund_request"}
+{"id":"r23","text":"What's the status of my refund?","memory":false,"expected":"refund_status"}
+{"id":"r24","text":"Has my refund been approved yet?","memory":false,"expected":"refund_status"}
+{"id":"r25","text":"any update on the refund I requested","memory":false,"expected":"refund_status"}
+{"id":"r26","text":"Can I cancel ORD-1004?","memory":false,"expected":"cancellation"}
+{"id":"r27","text":"please cancel my order","memory":true,"expected":"cancellation"}
+{"id":"r28","text":"What is your return policy?","memory":false,"expected":"policy_question"}
+{"id":"r29","text":"How long do refunds take to show up?","memory":false,"expected":"policy_question"}
+{"id":"r30","text":"Do you ship internationally?","memory":false,"expected":"policy_question"}
+{"id":"r31","text":"How much is expedited shipping?","memory":false,"expected":"policy_question"}
+{"id":"r32","text":"What does the warranty cover?","memory":false,"expected":"policy_question"}
+{"id":"r33","text":"Do you price match other stores?","memory":false,"expected":"policy_question"}
+{"id":"r34","text":"What are your support hours?","memory":false,"expected":"policy_question"}
+{"id":"r35","text":"Are gift cards refundable?","memory":false,"expected":"policy_question"}
+{"id":"r36","text":"Is there free shipping?","memory":false,"expected":"policy_question"}
+{"id":"r37","text":"My package was damaged, what should I do?","memory":false,"expected":"policy_question"}
+{"id":"r38","text":"Can I cancel an order after it ships?","memory":false,"expected":"policy_question"}
+{"id":"r39","text":"Recommend some wireless earbuds","memory":false,"expected":"product_recommendation"}
+{"id":"r40","text":"I'm looking for a gift for a coffee lover","memory":false,"expected":"product_recommendation"}
+{"id":"r41","text":"What's the best standing desk you sell?","memory":false,"expected":"product_recommendation"}
+{"id":"r42","text":"Suggest hiking gear under $150","memory":false,"expected":"product_recommendation"}
+{"id":"r43","text":"Do you have any ergonomic office chairs?","memory":false,"expected":"product_recommendation"}
+{"id":"r44","text":"I need a portable speaker for the beach","memory":false,"expected":"product_recommendation"}
+{"id":"r45","text":"hi there","memory":false,"expected":"greeting"}
+{"id":"r46","text":"Thanks!","memory":false,"expected":"greeting"}
+{"id":"r47","text":"which smartwatch is good for running?","memory":false,"expected":"product_recommendation"}
+{"id":"r48","text":"How do I change my shipping address?","memory":false,"expected":"policy_question"}
+{"id":"r49","text":"Where's my stuff? Order ORD-1004","memory":false,"expected":"order_status"}
+{"id":"r50","text":"Can I return headphones I bought 2 months ago?","memory":false,"expected":"policy_question"}
