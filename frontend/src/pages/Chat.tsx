@@ -8,13 +8,29 @@ import { RouteStrip } from "../components/RouteStrip";
 import { LogoMark } from "../components/Logo";
 import { ErrorNote } from "../components/ui";
 
-const STARTERS = [
-  "Where is my order ORD-1001?",
-  "Can I return ORD-1002?",
-  "I want a refund for ORD-1002, the strap broke",
+const COMMON_STARTERS = [
   "Recommend noise-cancelling headphones under $300",
   "Do you ship to Canada?",
   "Show me all my orders",
+];
+
+// Each demo customer owns different orders, so the suggestions use that customer's own order ids.
+const STARTERS_BY_EMAIL: Record<string, string[]> = {
+  "pardha.saradhi@example.com": [
+    "Where is my order ORD-1001?",
+    "Can I return ORD-1002?",
+    "I want a refund for ORD-1002, the strap broke",
+  ],
+  "pavan.y@example.com": [
+    "Where is my order ORD-1007?",
+    "Can I return ORD-1006?",
+    "I want a refund for ORD-1006, the chair arrived damaged",
+  ],
+};
+
+const startersFor = (email?: string) => [
+  ...((email && STARTERS_BY_EMAIL[email]) || []),
+  ...COMMON_STARTERS,
 ];
 
 function Sources({ cites }: { cites: Citation[] }) {
@@ -173,7 +189,7 @@ export default function Chat() {
                 <h2 className="mt-5 text-2xl font-semibold">Hi {user?.full_name.split(" ")[0]}, what can I help with?</h2>
                 <p className="mt-1.5 text-sm text-ink/55">I can only see orders on your account. Refunds are reviewed by a person before they're issued.</p>
                 <div className="mt-8 grid gap-2 sm:grid-cols-2">
-                  {STARTERS.map((s) => (
+                  {startersFor(user?.email).map((s) => (
                     <button key={s} onClick={() => send(s)} className="rounded-lg border border-line bg-white px-4 py-3 text-left text-sm text-ink/80 transition-colors hover:border-lagoon/40 hover:bg-lagoon-soft/40">{s}</button>
                   ))}
                 </div>
