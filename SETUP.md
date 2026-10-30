@@ -55,9 +55,9 @@ npm run build && npm run preview   # http://localhost:4173
 
 | Account | Email | Password |
 |---|---|---|
-| Customer | alex.morgan@example.com | demo1234 |
-| Customer | priya.shah@example.com | demo1234 |
-| Admin | admin@vsr-ai.example | admin1234 |
+| Customer | pardha.saradhi@example.com | demo1234 |
+| Customer | pavan.y@example.com | demo1234 |
+| Admin | gopireddy.vsr@example.com | admin1234 |
 
 The sign-in page offers one-click buttons for these accounts.
 
@@ -100,9 +100,9 @@ See `.env.example`. Key variables:
 - `TRUST_PROXY_HEADERS`, `REQUEST_TIMEOUT_SECONDS`, `CORS_ORIGINS`
 - `CHROMA_PATH`, `CHECKPOINT_DB_PATH`
 
-## Deployment approach (not yet deployed)
+## Deployment approach
 
-No live deployment exists. A practical path:
+The live demo runs on Render (static frontend + FastAPI web service); see the README's Deployment section. Other practical paths:
 
 **Single VM (simplest).** Run `docker compose up -d` on a small VM, for example 2 vCPU and 4 GB RAM. Put a TLS-terminating proxy such as Caddy in front of port 8080, set strong `POSTGRES_PASSWORD` and `JWT_SECRET`, and keep `TRUST_PROXY_HEADERS=true`, since nginx overwrites `X-Forwarded-For`.
 

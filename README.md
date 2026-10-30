@@ -7,7 +7,10 @@ Every reply shows which agents handled it, which tools they called, and which po
 
 ![VSR AI Assistant answering a follow-up with memory, agent route strip and policy citations](docs/screenshots/04-chat-memory-route-strip-citations.png)
 
-> **Status:** runs locally and is tested; it is **not deployed**. All data is synthetic and all refunds are simulated. Published results come from the **deterministic agent mode**. The LLM mode is implemented but **not evaluated** (see [Deterministic vs LLM](#deterministic-vs-llm-powered-modes)).
+<p align="center"><a href="https://vsr-ai-frontend.onrender.com"><b>▶ Live demo: vsr-ai-frontend.onrender.com</b></a><br/>
+<sub>One-click sign-in as a customer or the admin. Hosted on Render's free tier, so the first visit after a quiet period can take up to a minute while the backend wakes up.</sub></p>
+
+> **Status:** deployed on Render and tested. All data is synthetic and all refunds are simulated. Published results come from the **deterministic agent mode**. The LLM mode is implemented but **not evaluated** (see [Deterministic vs LLM](#deterministic-vs-llm-powered-modes)).
 
 ## 1. Overview
 
@@ -107,7 +110,7 @@ cd backend && pip install -r requirements-dev.txt && python -m app.seed && pytho
 cd frontend && npm ci && npm run dev    # http://localhost:5173
 ```
 
-Demo accounts: `alex.morgan@example.com` / `demo1234` (customer) and `admin@vsr-ai.example` / `admin1234` (admin), also available as one-click sign-in buttons.
+Demo accounts: `pardha.saradhi@example.com` and `pavan.y@example.com` / `demo1234` (customers) and `gopireddy.vsr@example.com` / `admin1234` (admin), also available as one-click sign-in buttons.
 
 ## 8. Screenshots
 
@@ -187,11 +190,17 @@ Refund and return actions remain deterministic in both modes.
   - All pass on SQLite and PostgreSQL 16.
 - **Frontend:** `tsc` typecheck and production build both pass.
 - **Browser E2E:** `scripts/browser_e2e.py` passes with no console errors or unexpected API errors.
-- **CI:** `.github/workflows/ci.yml` runs the tests on both databases, the evaluation, the frontend build, and a Docker image build. It has **not run yet**, because the repository isn't pushed.
+- **CI:** `.github/workflows/ci.yml` runs the tests on both databases, the evaluation, the frontend build, and a Docker image build. It runs on every push to `main`; see the repository's Actions tab for the latest result.
 
 ## 13. Deployment
 
-Not deployed; no live URL exists. Recommended paths (single VM with Compose, or static frontend + container backend + managed PostgreSQL) and the constraints to respect are in [SETUP.md](SETUP.md#deployment-approach-not-yet-deployed).
+Live at **https://vsr-ai-frontend.onrender.com**.
+
+- **Frontend:** a Render Static Site built with `VITE_API_BASE_URL` pointing at the backend, plus a rewrite rule (`/*` → `/index.html`) so client-side routes such as `/login` survive a page refresh.
+- **Backend:** the FastAPI service on Render's free tier. Free instances sleep when idle, so the sign-in page lists the demo accounts immediately, polls `/api/health` while the backend wakes, and enables sign-in once it responds, with a retry option if startup takes longer than two minutes.
+- **Startup:** `app.bootstrap` creates tables, seeds the demo data and builds the Chroma index only when they are missing, so a restarted instance comes back ready to use.
+
+Other deployment options (single VM with Compose, or managed PostgreSQL) and the constraints to respect are in [SETUP.md](SETUP.md#deployment-approach).
 
 ## 14. Known limitations
 
