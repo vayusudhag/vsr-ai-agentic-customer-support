@@ -5,6 +5,8 @@
 <p align="center">A multi-agent customer support platform built with LangGraph, FastAPI, PostgreSQL, Chroma and React.<br/>
 Every reply shows which agents handled it, which tools they called, and which policy it came from. Refunds wait for a human.</p>
 
+<p align="center"><a href="https://github.com/vayusudhag/vsr-agentic-ai-platform/actions/workflows/ci.yml"><img src="https://github.com/vayusudhag/vsr-agentic-ai-platform/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI status"></a></p>
+
 ![VSR AI Assistant answering a follow-up with memory, agent route strip and policy citations](docs/screenshots/04-chat-memory-route-strip-citations.png)
 
 <p align="center"><a href="https://vsr-ai-frontend.onrender.com"><b>▶ Live demo: vsr-ai-frontend.onrender.com</b></a><br/>
@@ -103,7 +105,7 @@ cp .env.example .env            # set POSTGRES_PASSWORD and JWT_SECRET
 docker compose up --build       # http://localhost:8080
 ```
 
-Docker images were not built in the development environment (Docker was unavailable); see [SETUP.md](SETUP.md) for what was verified. The non-Docker path is fully tested:
+Both Docker images are built in CI on every push, and the hosted backend runs from `backend/Dockerfile`. To run without Docker:
 
 ```bash
 cd backend && pip install -r requirements-dev.txt && python -m app.seed && python -m app.rag.ingest && uvicorn app.main:app --port 8000
@@ -197,7 +199,7 @@ Refund and return actions remain deterministic in both modes.
 Live at **https://vsr-ai-frontend.onrender.com**.
 
 - **Frontend:** a Render Static Site built with `VITE_API_BASE_URL` pointing at the backend, plus a rewrite rule (`/*` → `/index.html`) so client-side routes such as `/login` survive a page refresh.
-- **Backend:** the FastAPI service on Render's free tier. Free instances sleep when idle, so the sign-in page lists the demo accounts immediately, polls `/api/health` while the backend wakes, and enables sign-in once it responds, with a retry option if startup takes longer than two minutes.
+- **Backend:** the FastAPI service, deployed on Render's free tier from `backend/Dockerfile`. Free instances sleep when idle, so the sign-in page lists the demo accounts immediately, polls `/api/health` while the backend wakes, and enables sign-in once it responds, with a retry option if startup takes longer than two minutes.
 - **Startup:** `app.bootstrap` creates tables, seeds the demo data and builds the Chroma index only when they are missing, so a restarted instance comes back ready to use.
 
 Other deployment options (single VM with Compose, or managed PostgreSQL) and the constraints to respect are in [SETUP.md](SETUP.md#deployment-approach).
@@ -210,7 +212,6 @@ Other deployment options (single VM with Compose, or managed PostgreSQL) and the
 - **The embeddings are lexical** (feature hashing). Retrieval relies on shared vocabulary plus a small synonym map. Semantic embeddings should improve recall on paraphrases.
 - **The evaluation is small and self-authored** (n = 10–50 per set). Treat the results as indicative.
 - **The backend is single-process only.** Rate limits are in memory, and the LangGraph checkpointer is a local SQLite file. Horizontal scaling needs Redis-backed rate limiting and a Postgres checkpointer.
-- **The Docker images have never been built.** Their components were verified individually.
 - **No real integrations.** No email or label delivery, no payment processing, and no cancellation action tool (cancellation is explained, not executed).
 
 ## 15. Future improvements

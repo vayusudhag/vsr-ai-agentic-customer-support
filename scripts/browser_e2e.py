@@ -54,8 +54,8 @@ with sync_playwright() as p:
     expect(page.get_by_text("Demo accounts")).to_be_visible()
     shot(page, "02-sign-in")
 
-    # ---- customer: Alex
-    login(page, "Alex Morgan (customer)")
+    # ---- customer: Pardha
+    login(page, "Pardha Saradhi (customer)")
     page.wait_for_url("**/app/chat")
     expect(page.get_by_text("what can I help with?")).to_be_visible()
     shot(page, "03-chat-empty")
@@ -105,7 +105,7 @@ with sync_playwright() as p:
     page.get_by_role("button", name="Sign out").click()
 
     # ---- admin: approve the refund
-    login(page, "Jordan Lee (admin)")
+    login(page, "Gopireddy VSR (admin)")
     page.wait_for_url("**/admin")
     expect(page.get_by_text("Refunds waiting for approval")).to_be_visible()
     expect(page.get_by_role("button", name="Approve")).to_be_visible()
@@ -115,12 +115,12 @@ with sync_playwright() as p:
         page.get_by_role("button", name="Approve").click()
     assert resp.value.ok, resp.value.status
     expect(page.get_by_text("No refunds are waiting")).to_be_visible()
-    expect(page.get_by_text("Jordan Lee (Support Lead)").first).to_be_visible()
+    expect(page.get_by_text("Gopireddy VSR (Support Lead)").first).to_be_visible()
     shot(page, "13-admin-dashboard-after-approval", full=True)
     page.get_by_role("button", name="Sign out").click()
 
     # ---- customer sees the resumed workflow's message
-    login(page, "Alex Morgan (customer)")
+    login(page, "Pardha Saradhi (customer)")
     page.wait_for_url("**/app/chat")
     # most recently updated conversation is first in the history sidebar
     page.locator("aside button", has_text="messages").first.click()
@@ -136,7 +136,7 @@ with sync_playwright() as p:
     mp = m.new_page()
     watch(mp)
     mp.goto(f"{BASE}/login")
-    mp.get_by_role("button", name="Alex Morgan (customer)").click()
+    mp.get_by_role("button", name="Pardha Saradhi (customer)").click()
     mp.wait_for_url("**/app/chat")
     send(mp, "Can I cancel ORD-1004?")
     expect(mp.get_by_text("can be cancelled at no cost").first).to_be_visible()
