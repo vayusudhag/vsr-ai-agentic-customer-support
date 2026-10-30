@@ -217,7 +217,9 @@ def order_agent(state: SupportState, runtime: Runtime[AgentContext]) -> dict:
                               "Focus on order status, tracking, delivery, order details, and cancellation eligibility. "
                               "Do not explain return or refund policies; the Knowledge Agent handles policy questions. "
                               "Avoid generic advice such as checking the retailer website. "
-                              "Do not repeat information unnecessarily.")
+                              "Do not repeat information unnecessarily. "
+                              "If running_late is true, say the order is running late; never present its past "
+                              "estimated_delivery as the expected arrival date.")
     if llm_text:
         _log_agent(runtime, "order_agent", intents[0], t0)
         return _step(state, "order_agent", tc, parts=[llm_text])
@@ -234,9 +236,16 @@ def order_agent(state: SupportState, runtime: Runtime[AgentContext]) -> dict:
             d = _call(tc, "get_order_details" if want_details else "get_order_status", order_id=oid)
             st = d["status"]
             prefix = f"(Using {oid} from earlier in our conversation.) " if state.get("order_from_memory") else ""
-            if st in ("shipped", "in_transit"):
+            if st in ("shipped", "in_transit") and d["running_late"]:
+                text = (f"Your order **{oid}** has shipped with {d['carrier']} (tracking {d['tracking_number']}) "
+                        f"but is **running late**: it was due by {d['estimated_delivery']} and hasn't been delivered yet. "
+                        "You can follow the latest updates with the tracking number.")
+            elif st in ("shipped", "in_transit"):
                 text = (f"Your order **{oid}** has shipped with {d['carrier']} (tracking {d['tracking_number']}) "
                         f"and is expected to arrive on **{d['estimated_delivery']}**.")
+            elif st == "processing" and d["running_late"]:
+                text = (f"Your order **{oid}** is still processing and is **running late**: "
+                        f"it was due by {d['estimated_delivery']} and hasn't shipped yet.")
             elif st == "processing":
                 text = f"Your order **{oid}** is still processing and hasn't shipped yet. Estimated delivery is **{d['estimated_delivery']}**."
             elif st == "delivered":

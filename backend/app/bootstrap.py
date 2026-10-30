@@ -1,5 +1,5 @@
-"""Idempotent startup: create tables, seed demo data if the database is empty,
-and build the Chroma index if it is empty. Used by the Docker entrypoint."""
+"""Idempotent startup: create tables, seed demo data if the database is empty
+(otherwise move the demo order dates up to today), and build the Chroma index if it is empty. Used by the Docker entrypoint."""
 import time
 
 from sqlalchemy import func, select, text
@@ -22,7 +22,7 @@ def wait_for_db(attempts: int = 30, delay: float = 2.0) -> None:
 def main() -> None:
     from app.models import User
     from app.rag.ingest import get_collection, ingest
-    from app.seed import seed
+    from app.seed import refresh_demo_dates, seed
 
     wait_for_db()
     init_db()
@@ -32,6 +32,7 @@ def main() -> None:
         print("seeded:", seed(drop=False))
     else:
         print(f"database already has {users} users; not reseeding")
+        print(f"demo order dates shifted by {refresh_demo_dates()} days")
     if get_collection().count() == 0:
         print("ingested:", ingest())
     else:

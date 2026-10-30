@@ -91,10 +91,15 @@ def run_tool(ctx: ToolContext, name: str, fn, **kwargs) -> dict:
 # ---------------------------------------------------------------- orders
 def get_order_status(ctx: ToolContext, order_id: str) -> dict:
     o = _load_owned_order(ctx, order_id)
+    eta = _as_utc(o.estimated_delivery)
+    # An open order whose estimate has passed is late; its old estimate is not a delivery date to quote.
+    late = o.status in ("processing", "shipped", "in_transit") and eta is not None \
+        and eta.date() < datetime.now(timezone.utc).date()
     return {
         "order_id": o.order_number, "status": o.status, "carrier": o.carrier, "tracking_number": o.tracking_number,
         "placed_on": _fmt_date(o.placed_at), "shipped_on": _fmt_date(o.shipped_at),
         "estimated_delivery": _fmt_date(o.estimated_delivery) if o.status != "delivered" else None,
+        "running_late": late,
         "delivered_on": _fmt_date(o.delivered_at),
     }
 

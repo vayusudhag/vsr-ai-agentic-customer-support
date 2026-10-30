@@ -7,6 +7,8 @@ Run:  python -m app.seed  (drops and recreates all tables)
 import random
 from datetime import datetime, timedelta, timezone
 
+from sqlalchemy import select
+
 from app.db import Base, SessionLocal, engine
 from app.models import Order, OrderItem, Product, User
 from app.security import hash_password
@@ -77,6 +79,9 @@ ADMINS = [("gopireddy.vsr@example.com", "Gopireddy VSR (Support Lead)"), ("ops@v
 DEMO_PASSWORD = "demo1234"
 ADMIN_PASSWORD = "admin1234"
 CARRIERS = ["UPS", "FedEx", "USPS", "DHL"]
+# ORD-1001 is placed this many days before seeding; refresh_demo_dates() uses it as the anchor.
+ANCHOR_ORDER, ANCHOR_PLACED_DAYS_AGO = "ORD-1001", 3
+ORDER_DATE_FIELDS = ("placed_at", "shipped_at", "estimated_delivery", "delivered_at")
 
 
 def _order(n, customer, status, placed_days_ago, items, now, *, eta_in=None, delivered_days_ago=None):
@@ -135,7 +140,7 @@ def seed(drop: bool = True) -> dict:
 
         # Hand-crafted demo scenarios (documented in DEMO.md)
         orders = [
-            _order(1001, pardha, "shipped", 3, [(P["AUD-110"], 1)], now, eta_in=4),            # in transit
+            _order(1001, pardha, "shipped", ANCHOR_PLACED_DAYS_AGO, [(P["AUD-110"], 1)], now, eta_in=4),            # in transit
             _order(1002, pardha, "delivered", 14, [(P["WEA-210"], 1), (P["ACC-600"], 1)], now, delivered_days_ago=10),  # returnable
             _order(1003, pardha, "delivered", 60, [(P["OFF-330"], 1)], now, delivered_days_ago=45),  # outside window
             _order(1004, pardha, "processing", 1, [(P["KIT-410"], 1)], now, eta_in=6),         # not shipped yet
@@ -166,6 +171,32 @@ def seed(drop: bool = True) -> dict:
             db.add(o)
         db.commit()
         return {"products": len(PRODUCTS), "customers": len(users), "orders": len(orders)}
+    finally:
+        db.close()
+
+
+def refresh_demo_dates(now: datetime | None = None) -> int:
+    """Shift every order's dates so the demo scenarios are relative to now again, as if just seeded.
+
+    The shift is measured from the anchor order, so running it repeatedly is a no-op. Returns the
+    number of whole days shifted (0 if the anchor order is missing or already current).
+    """
+    now = now or datetime.now(timezone.utc)
+    db = SessionLocal()
+    try:
+        anchor = db.scalar(select(Order).where(Order.order_number == ANCHOR_ORDER))
+        if anchor is None:
+            return 0
+        placed = anchor.placed_at if anchor.placed_at.tzinfo else anchor.placed_at.replace(tzinfo=timezone.utc)
+        delta = (now - timedelta(days=ANCHOR_PLACED_DAYS_AGO)) - placed
+        if abs(delta) < timedelta(minutes=1):
+            return 0
+        for o in db.scalars(select(Order)):
+            for f in ORDER_DATE_FIELDS:
+                if getattr(o, f) is not None:
+                    setattr(o, f, getattr(o, f) + delta)
+        db.commit()
+        return delta.days
     finally:
         db.close()
 
