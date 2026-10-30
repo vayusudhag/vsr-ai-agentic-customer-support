@@ -14,12 +14,9 @@ docker compose up --build
 
 Then open http://localhost:8080. The backend container waits for PostgreSQL, creates tables, seeds the synthetic data if the database is empty, builds the Chroma index if it is empty, and starts uvicorn. A named volume persists the Chroma index and LangGraph checkpoints, so paused refund approvals survive restarts.
 
-> **Verification status:** Docker was not available in the build environment, so the images and `docker compose up` have **not** been run. Verified pieces:
+> **Verification status:** Both Docker images are built in CI on every push, and the hosted backend runs on Render from `backend/Dockerfile`. CI builds the images but does not start the full `docker compose` stack. The pieces it relies on were checked separately:
 > - The startup logic (`python -m app.bootstrap`), run twice against an empty PostgreSQL 16 database, seeded once and then correctly skipped.
 > - The frontend's `nginx.conf`, served with real nginx, passed `nginx -t`, handled SPA routing, cache headers and the `/api` proxy, and passed the full browser test suite.
-> - Both YAML files parse.
->
-> The CI workflow includes a job that builds both images on GitHub's runners.
 
 ## Option B — Run locally without Docker
 
