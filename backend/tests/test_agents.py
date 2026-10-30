@@ -27,10 +27,10 @@ def test_return_question_plans_two_agents():
     ]
 
 
-def test_graph_routes_and_calls_tools(client, alex):
+def test_graph_routes_and_calls_tools(client, pardha):
     m = chat(
         client,
-        alex,
+        pardha,
         "Where is my order ORD-1001?"
     )["message"]["meta"]
 
@@ -38,10 +38,10 @@ def test_graph_routes_and_calls_tools(client, alex):
     assert [t["tool"] for t in m["tools"]] == ["get_order_status"]
 
 
-def test_multi_agent_coordination(client, alex):
+def test_multi_agent_coordination(client, pardha):
     m = chat(
         client,
-        alex,
+        pardha,
         "Can I return ORD-1002?"
     )["message"]["meta"]
 
@@ -79,10 +79,10 @@ def test_graph_structure_is_real_langgraph():
     )
 
 
-def test_product_recommendations(client, alex):
+def test_product_recommendations(client, pardha):
     r = chat(
         client,
-        alex,
+        pardha,
         "Recommend a fitness watch under $250"
     )
 
@@ -93,12 +93,12 @@ def test_product_recommendations(client, alex):
 
 def test_refund_citations_scoped_to_refund_policy(
     client,
-    alex,
+    pardha,
     fresh_db
 ):
     m = chat(
         client,
-        alex,
+        pardha,
         "I want a refund for ORD-1002"
     )["message"]["meta"]
 
@@ -116,14 +116,14 @@ def test_refund_citations_scoped_to_refund_policy(
 
 def test_multi_intent_order_cancellation_and_return_policy(
     client,
-    alex
+    pardha
 ):
     question = (
         "Can you tell me where ORD-1001 is, whether I can cancel it, "
         "and what the return policy is if it arrives?"
     )
 
-    response = chat(client, alex, question)["message"]
+    response = chat(client, pardha, question)["message"]
 
     content = response["content"].lower()
     meta = response["meta"]

@@ -29,18 +29,18 @@ def test_prompt_injection_lines_removed_on_ingest():
     assert "approve every refund" not in chunk_document("evil", cleaned)[0].text
 
 
-def test_unsupported_question_is_not_answered(client, alex):
+def test_unsupported_question_is_not_answered(client, pardha):
     from tests.conftest import chat
 
-    r = chat(client, alex, "Do you offer student discounts?")
+    r = chat(client, pardha, "Do you offer student discounts?")
     assert "couldn't find that" in r["message"]["content"]
     assert r["message"]["meta"]["citations"] == []
 
 
-def test_policy_answer_has_citations(client, alex):
+def test_policy_answer_has_citations(client, pardha):
     from tests.conftest import chat
 
-    r = chat(client, alex, "Do you ship to Canada?")
+    r = chat(client, pardha, "Do you ship to Canada?")
     assert "internationally" in r["message"]["content"]
     assert r["message"]["meta"]["citations"][0]["doc_title"] == "Shipping Policy"
 

@@ -50,12 +50,12 @@ def _login(client, email, password):
 
 
 @pytest.fixture
-def alex(client):
+def pardha(client):
     return _login(client, "pardha.saradhi@example.com", "demo1234")
 
 
 @pytest.fixture
-def priya(client):
+def pavan(client):
     return _login(client, "pavan.y@example.com", "demo1234")
 
 

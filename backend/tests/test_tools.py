@@ -20,7 +20,7 @@ def test_order_id_normalisation_and_validation():
 
 def test_cannot_read_another_customers_order(ctx):
     with pytest.raises(ToolError, match="couldn't find"):
-        get_order_status(ctx(), "ORD-1006")  # belongs to Priya
+        get_order_status(ctx(), "ORD-1006")  # belongs to Pavan
     assert get_order_status(ctx("pavan.y@example.com"), "ORD-1006")["order_id"] == "ORD-1006"
 
 

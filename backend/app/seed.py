@@ -131,18 +131,18 @@ def seed(drop: bool = True) -> dict:
             db.add(User(email=email, full_name=name, role="admin", password_hash=hash_password(ADMIN_PASSWORD)))
         addr = {u.email: a for (_e, _n, a), u in zip(CUSTOMERS, users)}
         P = products
-        alex, priya = users[0], users[1]
+        pardha, pavan = users[0], users[1]
 
         # Hand-crafted demo scenarios (documented in DEMO.md)
         orders = [
-            _order(1001, alex, "shipped", 3, [(P["AUD-110"], 1)], now, eta_in=4),            # in transit
-            _order(1002, alex, "delivered", 14, [(P["WEA-210"], 1), (P["ACC-600"], 1)], now, delivered_days_ago=10),  # returnable
-            _order(1003, alex, "delivered", 60, [(P["OFF-330"], 1)], now, delivered_days_ago=45),  # outside window
-            _order(1004, alex, "processing", 1, [(P["KIT-410"], 1)], now, eta_in=6),         # not shipped yet
-            _order(1005, alex, "delivered", 9, [(P["GFT-710"], 1)], now, delivered_days_ago=8),   # final sale
-            _order(1006, priya, "delivered", 12, [(P["OFF-300"], 1)], now, delivered_days_ago=7),  # other customer
-            _order(1007, priya, "in_transit", 4, [(P["OUT-500"], 1), (P["OUT-520"], 2)], now, eta_in=2),
-            _order(1008, priya, "cancelled", 20, [(P["KIT-430"], 1)], now),
+            _order(1001, pardha, "shipped", 3, [(P["AUD-110"], 1)], now, eta_in=4),            # in transit
+            _order(1002, pardha, "delivered", 14, [(P["WEA-210"], 1), (P["ACC-600"], 1)], now, delivered_days_ago=10),  # returnable
+            _order(1003, pardha, "delivered", 60, [(P["OFF-330"], 1)], now, delivered_days_ago=45),  # outside window
+            _order(1004, pardha, "processing", 1, [(P["KIT-410"], 1)], now, eta_in=6),         # not shipped yet
+            _order(1005, pardha, "delivered", 9, [(P["GFT-710"], 1)], now, delivered_days_ago=8),   # final sale
+            _order(1006, pavan, "delivered", 12, [(P["OFF-300"], 1)], now, delivered_days_ago=7),  # other customer
+            _order(1007, pavan, "in_transit", 4, [(P["OUT-500"], 1), (P["OUT-520"], 2)], now, eta_in=2),
+            _order(1008, pavan, "cancelled", 20, [(P["KIT-430"], 1)], now),
         ]
         # Additional varied orders for realistic volume
         statuses = ["delivered", "delivered", "delivered", "shipped", "in_transit", "processing", "cancelled"]

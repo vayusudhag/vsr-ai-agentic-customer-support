@@ -14,29 +14,29 @@ def test_endpoints_require_auth(client):
         assert client.get(path).status_code == 401
 
 
-def test_admin_endpoints_forbidden_for_customers(client, alex):
-    assert client.get("/api/admin/metrics", headers=alex).status_code == 403
-    assert client.get("/api/admin/refunds", headers=alex).status_code == 403
+def test_admin_endpoints_forbidden_for_customers(client, pardha):
+    assert client.get("/api/admin/metrics", headers=pardha).status_code == 403
+    assert client.get("/api/admin/refunds", headers=pardha).status_code == 403
 
 
-def test_input_validation(client, alex):
-    assert client.post("/api/chat", json={"message": "   "}, headers=alex).status_code == 422
-    assert client.post("/api/chat", json={"message": "x" * 2001}, headers=alex).status_code == 422
+def test_input_validation(client, pardha):
+    assert client.post("/api/chat", json={"message": "   "}, headers=pardha).status_code == 422
+    assert client.post("/api/chat", json={"message": "x" * 2001}, headers=pardha).status_code == 422
 
 
-def test_orders_endpoint_scoped(client, alex):
-    ids = [o["order_id"] for o in client.get("/api/orders", headers=alex).json()]
+def test_orders_endpoint_scoped(client, pardha):
+    ids = [o["order_id"] for o in client.get("/api/orders", headers=pardha).json()]
     assert "ORD-1001" in ids and "ORD-1006" not in ids
-    assert client.get("/api/orders/ORD-1006", headers=alex).status_code == 404
+    assert client.get("/api/orders/ORD-1006", headers=pardha).status_code == 404
 
 
-def test_products_endpoint(client, alex):
-    assert len(client.get("/api/products", headers=alex).json()) >= 20
+def test_products_endpoint(client, pardha):
+    assert len(client.get("/api/products", headers=pardha).json()) >= 20
 
 
-def test_metrics_come_from_data(client, alex, admin):
+def test_metrics_come_from_data(client, pardha, admin):
     before = client.get("/api/admin/metrics", headers=admin).json()["total_customer_requests"]
-    client.post("/api/chat", json={"message": "Where is ORD-1001?"}, headers=alex)
+    client.post("/api/chat", json={"message": "Where is ORD-1001?"}, headers=pardha)
     after = client.get("/api/admin/metrics", headers=admin).json()
     assert after["total_customer_requests"] == before + 1
     assert after["agent_usage"] and after["avg_response_latency_ms"] is not None
