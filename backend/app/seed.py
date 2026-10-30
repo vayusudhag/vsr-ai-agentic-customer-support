@@ -5,6 +5,8 @@ Dates are generated relative to the moment of seeding so that demo scenarios
 Run:  python -m app.seed  (drops and recreates all tables)
 """
 import random
+import threading
+import time
 from datetime import datetime, timedelta, timezone
 
 from sqlalchemy import select
@@ -82,6 +84,9 @@ CARRIERS = ["UPS", "FedEx", "USPS", "DHL"]
 # ORD-1001 is placed this many days before seeding; refresh_demo_dates() uses it as the anchor.
 ANCHOR_ORDER, ANCHOR_PLACED_DAYS_AGO = "ORD-1001", 3
 ORDER_DATE_FIELDS = ("placed_at", "shipped_at", "estimated_delivery", "delivered_at")
+REFRESH_INTERVAL_SECONDS = 24 * 60 * 60
+_last_refresh: float | None = None  # time.monotonic() of this process's last refresh
+_refresh_lock = threading.Lock()
 
 
 def _order(n, customer, status, placed_days_ago, items, now, *, eta_in=None, delivered_days_ago=None):
@@ -199,6 +204,26 @@ def refresh_demo_dates(now: datetime | None = None) -> int:
         return delta.days
     finally:
         db.close()
+
+
+def demo_refresh_due() -> bool:
+    return _last_refresh is None or time.monotonic() - _last_refresh >= REFRESH_INTERVAL_SECONDS
+
+
+def refresh_demo_dates_if_due() -> bool:
+    """Run refresh_demo_dates() if this process hasn't in the last 24 hours, so a long-running
+    server keeps the demo current. Returns whether it ran."""
+    global _last_refresh
+    if not _refresh_lock.acquire(blocking=False):
+        return False  # another request is already refreshing
+    try:
+        if not demo_refresh_due():
+            return False
+        _last_refresh = time.monotonic()  # set first so a failing refresh isn't retried on every request
+        refresh_demo_dates()
+        return True
+    finally:
+        _refresh_lock.release()
 
 
 if __name__ == "__main__":

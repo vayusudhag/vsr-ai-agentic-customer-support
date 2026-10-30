@@ -8,12 +8,14 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from starlette.concurrency import run_in_threadpool
 
 from app.agents.llm import llm_mode
 from app.config import get_settings
 from app.db import init_db
 from app.observability import configure_logging
 from app.routers import admin, auth, chat, evaluation, store
+from app.seed import demo_refresh_due, refresh_demo_dates_if_due
 
 log = configure_logging()
 settings = get_settings()
@@ -64,6 +66,12 @@ async def reliability(request: Request, call_next):
             return JSONResponse({"detail": "Too many requests. Wait a minute and try again."}, status_code=429,
                                 headers={"Retry-After": "60"})
         window.append(now)
+        # Keep demo order dates current on a long-running server (at most once a day per process).
+        if demo_refresh_due():
+            try:
+                await run_in_threadpool(refresh_demo_dates_if_due)
+            except Exception:
+                log.exception("demo date refresh failed")
     t0 = time.perf_counter()
     try:
         response = await asyncio.wait_for(call_next(request), timeout=settings.request_timeout_seconds)

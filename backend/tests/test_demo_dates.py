@@ -40,3 +40,18 @@ def test_refresh_moves_stale_demo_dates_to_today(ctx, stale_db):
 def test_shipped_order_past_its_estimate_is_reported_late(client, pardha, stale_db):
     text = chat(client, pardha, "Where is my order ORD-1001?")["message"]["content"]
     assert "running late" in text and "expected to arrive" not in text
+
+
+def test_running_server_refreshes_dates_at_most_once_a_day(client, ctx, stale_db, monkeypatch):
+    import time
+
+    from app import seed
+
+    monkeypatch.setattr(seed, "_last_refresh", time.monotonic() - 60 * 60)  # refreshed an hour ago
+    assert client.get("/api/health").status_code == 200
+    assert get_order_status(ctx(), "ORD-1001")["running_late"]
+
+    monkeypatch.setattr(seed, "_last_refresh", time.monotonic() - seed.REFRESH_INTERVAL_SECONDS - 1)
+    assert client.get("/api/health").status_code == 200
+    assert not get_order_status(ctx(), "ORD-1001")["running_late"]
+    assert not seed.demo_refresh_due()  # the next one is a day away
